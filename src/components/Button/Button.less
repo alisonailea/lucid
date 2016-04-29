@@ -1,8 +1,90 @@
+@import "../../styles/variables.less";
+@import "../../styles/mixins.less";
+
 @Button-size-padding: @size-standard;
 @Button-size-height: @size-standard-height;
 @Button-size-height-small: @size-standard-height - 8;
 @Button-size-height-large: @size-standard-height + 12;
 @Button-size-borderRadius: @size-borderRadius;
+
+.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor){
+	.gradient-animation(@gradientStart, @gradientEnd);
+	.make-is-disabled(lucid-Button, @gradientStart, @gradientEnd);
+	.bold();
+	border-color: @borderColor;
+	color: @fontColor;
+}
+
+.GMIXIN-button-types(){
+	--primary {.MIXIN-button-variations(
+		@featured-color-primary-gradientStartColor,
+		@featured-color-primary-gradientEndColor,
+		@featured-color-primary-borderColor,
+		@color-white)}
+	// --success {.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor)}
+	// --info {.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor)}
+	// --warning {.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor)}
+	// --danger {.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor)}
+	// --link {.MIXIN-button-variations(@gradientStart, @gradientEnd, @borderColor, @fontColor)}
+}
+
+.BASE_Button(){
+	// Mixins
+	.no-safari-flicker();
+	.box-sizing();
+	cursor: pointer;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: @Button-size-borderRadius;
+	cursor: pointer;
+	outline: none;
+	font: @font;
+	letter-spacing: .05em;
+
+	&:before {border-radius: @Button-size-borderRadius;}
+
+	&-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+
+		> .lucid-Icon {
+			margin-left: -1em/2;
+			transition: color 0.1s, fill 0.1s;
+		}
+		> span {
+			transition: color 0.1s, fill 0.1s;
+		}
+	}
+}
+
+.lucid-Button {
+	.BASE_Button();
+	height: @Button-size-height;
+	padding: 0 @Button-size-padding;
+}
+.lucid-Button-short{
+	.BASE_Button();
+	height: @Button-size-height-small;
+	padding: 0 @Button-size-padding;
+}
+.lucid-Button-small{
+	.BASE_Button();
+	height: @Button-size-height-small;
+	padding: 0 @Button-size-padding/1.5;
+}
+.lucid-Button-large{
+	.BASE_Button();
+	height: @Button-size-height-large;
+	padding: 0 @Button-size-padding*1.5;
+	font-size: 1.2em;
+
+	.lucid-Icon {
+		width: 1.2em;
+		height: 1.2em;
+	}
+}
 
 .lucid-Button {
 	// Mixins

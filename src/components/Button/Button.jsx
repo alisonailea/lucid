@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import { lucidClassNames } from '../../util/style-helpers';
+import styles from './Button.less';
 const boundClassNames = lucidClassNames.bind('&-Button');
+// const boundClassNames = lucidClassNames.bind({styles['lucid-Button']});
+
+console.log(styles);
 
 const {
 	arrayOf,
