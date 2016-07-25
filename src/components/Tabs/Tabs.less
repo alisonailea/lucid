@@ -1,3 +1,4 @@
+
 @Tabs-spacer-height: @size-XXS;
 @Tabs-tab-height: @size-standard-height;
 @Tabs-arrow-width: 8px;
@@ -5,6 +6,7 @@
 
 .lucid-Tabs {
 	&-bar {
+		.clearfix();
 		font-size: @fontSize;
 		font-family: @fontFamily;
 		list-style-type: none;
@@ -19,7 +21,6 @@
 		color: @color-primary;
 		user-select: none;
 		margin-bottom: -@Tabs-border-width;
-		height: @Tabs-tab-height;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -38,6 +39,11 @@
 
 		&:active {
 			.dropshadow-gradient(@color-gray, @color-lightGray, @Tabs-spacer-height);
+		}
+
+		> span {
+			flex: 1;
+			padding: 5px 10px;
 		}
 	}
 
@@ -62,18 +68,25 @@
 		& + * {
 			border-left-width: 0;
 		}
+
 		.lucid-Tabs-Tab-arrow{
-			z-index: 1;
-			height: @Tabs-tab-height;
-			width: @Tabs-arrow-width;
-			position: absolute;
-			bottom: -@Tabs-border-width;
-			right: -@Tabs-arrow-width;
-			.lucid-Tabs-Tab-arrow-line {
-				stroke: @color-borderColor;
+			flex: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-left: @Tabs-border-width solid @color-borderColor;
+			height: 100%;
+			padding: 0;
+
+			svg {
+				margin-left: -1px;
+				z-index: 1;
+				height: @Tabs-tab-height;
+				width: @Tabs-arrow-width;
+				margin-right: -(@Tabs-arrow-width - 1);
 			}
 		}
-		.Tabs-mixin-tab-line(@color-transparent);
+		.Tabs-mixin-tab-line(@color-borderColor);
 		.Tabs-mixin-tab-arrow-background();
 	}
 
@@ -113,8 +126,9 @@
 
 .Tabs-mixin-tab-line(@color-Tab-line: @color-primary) {
 	.lucid-Tabs-Tab-arrow {
-		.lucid-Tabs-Tab-arrow-tab-line {
-			fill: @color-Tab-line;
+		border-color: @color-Tab-line;
+		.lucid-Tabs-Tab-arrow-line {
+			stroke: @color-Tab-line;
 		}
 	}
 }
