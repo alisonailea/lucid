@@ -11,6 +11,7 @@ import { handleHighlightCode, toMarkdown, sanitizeExamplePath } from './util';
 import createClass from 'create-react-class';
 import querystring from 'querystring';
 
+import Animation from './containers/animation';
 import ColorPalette from './containers/color-palette';
 import LandingPage from './containers/landing-page';
 import Icons from './containers/icons';
@@ -392,7 +393,8 @@ const Component = createClass({
 														),
 														([propName, propDetails]) => {
 															if (
-																!propDetails || _.isNil(propDetails.description)
+																!propDetails ||
+																_.isNil(propDetails.description)
 															) {
 																console.error(
 																	`Warning: There was an issue with the docs that were generated for component "${componentName}.${childComponent.displayName}" and prop "${propName}". One reason might be that you have a default value for something that was never declared in propTypes.`
@@ -629,6 +631,12 @@ const App = createClass({
 					<nav>
 						<VerticalListMenu className="App-pages">
 							<Item
+								onSelect={_.partial(this.goToPath, '/animation')}
+								isSelected={this.props.location.pathname === '/animation'}
+							>
+								Animation
+							</Item>
+							<Item
 								onSelect={_.partial(this.goToPath, '/color-palette')}
 								isSelected={this.props.location.pathname === '/color-palette'}
 							>
@@ -650,6 +658,7 @@ const App = createClass({
 						<Route exact path="/" component={LandingPage} />
 						<Route path="/components/:componentName" component={Component} />
 						<Route path="/color-palette" component={ColorPalette} />
+						<Route path="/animation" component={Animation} />
 						<Route path="/icons" component={withRouter(Icons)} />
 					</Switch>
 				</div>
